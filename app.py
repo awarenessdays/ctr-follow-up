@@ -55,6 +55,31 @@ st.markdown("""
     .stTabs [data-baseweb="tab-list"] {
         gap: 24px;
     }
+    
+    /* Chart container styling */
+    .chart-container {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    
+    /* Improve metric display */
+    .metric-value {
+        font-size: 2.5rem !important;
+        font-weight: 700 !important;
+        line-height: 1.2 !important;
+    }
+    
+    /* Improve chart titles */
+    .chart-title {
+        font-size: 1.4rem !important;
+        font-weight: 600 !important;
+        color: #1e293b !important;
+        margin-bottom: 10px !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -140,15 +165,30 @@ def process_uploaded_data(uploaded_file):
 def create_timeline_annotations():
     """Create timeline annotations for AI Overviews rollout phases"""
     return [
-        dict(x='2024-05-14', xref='x', y=0.95, yref='paper',
-             text="AIO Launch", showarrow=True, arrowhead=2,
-             bgcolor="#f59e0b", bordercolor="#f59e0b"),
-        dict(x='2024-10-13', xref='x', y=0.95, yref='paper',
-             text="US Expansion", showarrow=True, arrowhead=2,
-             bgcolor="#dc2626", bordercolor="#dc2626"),
-        dict(x='2025-03-01', xref='x', y=0.95, yref='paper',
-             text="EU Rollout", showarrow=True, arrowhead=2,
-             bgcolor="#6325f4", bordercolor="#6325f4")
+        dict(
+            x='2024-05-14', xref='x', y=0.95, yref='paper',
+            text="<b>AIO Launch</b><br>May 2024", 
+            showarrow=True, arrowhead=2, arrowsize=1, arrowwidth=2,
+            bgcolor="#f59e0b", bordercolor="#f59e0b", borderwidth=2,
+            font=dict(color="white", size=11, family="Arial Black"),
+            align="center", borderpad=4
+        ),
+        dict(
+            x='2024-10-13', xref='x', y=0.85, yref='paper',
+            text="<b>US Expansion</b><br>Oct 2024", 
+            showarrow=True, arrowhead=2, arrowsize=1, arrowwidth=2,
+            bgcolor="#dc2626", bordercolor="#dc2626", borderwidth=2,
+            font=dict(color="white", size=11, family="Arial Black"),
+            align="center", borderpad=4
+        ),
+        dict(
+            x='2025-03-01', xref='x', y=0.75, yref='paper',
+            text="<b>EU Rollout</b><br>Mar 2025", 
+            showarrow=True, arrowhead=2, arrowsize=1, arrowwidth=2,
+            bgcolor="#6325f4", bordercolor="#6325f4", borderwidth=2,
+            font=dict(color="white", size=11, family="Arial Black"),
+            align="center", borderpad=4
+        )
     ]
 
 def plot_intent_analysis(nb_info_ctr):
@@ -170,23 +210,59 @@ def plot_intent_analysis(nb_info_ctr):
         x=dates, y=info_desktop,
         mode='lines+markers',
         name='Informational Queries',
-        line=dict(color='#6325f4', width=3),
-        fill='tonexty'
+        line=dict(color='#6325f4', width=4),
+        marker=dict(size=8, line=dict(width=2, color='white')),
+        fill='tonexty',
+        fillcolor='rgba(99, 37, 244, 0.1)',
+        hovertemplate='<b>Informational</b><br>Date: %{x}<br>CTR: %{y:.2f}%<extra></extra>'
     ))
     fig_desktop.add_trace(go.Scatter(
         x=dates, y=non_info_desktop,
         mode='lines+markers',
         name='Non-Informational Queries',
-        line=dict(color='#10b981', width=3),
-        fill='tozeroy'
+        line=dict(color='#10b981', width=4),
+        marker=dict(size=8, line=dict(width=2, color='white')),
+        fill='tozeroy',
+        fillcolor='rgba(16, 185, 129, 0.1)',
+        hovertemplate='<b>Non-Informational</b><br>Date: %{x}<br>CTR: %{y:.2f}%<extra></extra>'
     ))
     
     fig_desktop.update_layout(
-        title="Desktop CTR by Query Intent",
-        xaxis_title="Date",
-        yaxis_title="CTR (%)",
-        height=400,
-        annotations=create_timeline_annotations()
+        title=dict(
+            text="<b>Desktop CTR by Query Intent</b>",
+            font=dict(size=20, color='#1e293b', family="Arial Black"),
+            x=0.5
+        ),
+        xaxis=dict(
+            title="<b>Date</b>",
+            titlefont=dict(size=14, color='#374151'),
+            tickfont=dict(size=12, color='#6b7280'),
+            showgrid=True,
+            gridcolor='rgba(0,0,0,0.1)',
+            zeroline=False
+        ),
+        yaxis=dict(
+            title="<b>CTR (%)</b>",
+            titlefont=dict(size=14, color='#374151'),
+            tickfont=dict(size=12, color='#6b7280'),
+            showgrid=True,
+            gridcolor='rgba(0,0,0,0.1)',
+            zeroline=False
+        ),
+        height=550,
+        font=dict(family="Arial", size=12),
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        annotations=create_timeline_annotations(),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1,
+            font=dict(size=12)
+        ),
+        margin=dict(l=60, r=60, t=100, b=60)
     )
     
     # Mobile chart
@@ -195,23 +271,59 @@ def plot_intent_analysis(nb_info_ctr):
         x=dates, y=info_mobile,
         mode='lines+markers',
         name='Informational Queries',
-        line=dict(color='#6325f4', width=3),
-        fill='tonexty'
+        line=dict(color='#6325f4', width=4),
+        marker=dict(size=8, line=dict(width=2, color='white')),
+        fill='tonexty',
+        fillcolor='rgba(99, 37, 244, 0.1)',
+        hovertemplate='<b>Informational</b><br>Date: %{x}<br>CTR: %{y:.2f}%<extra></extra>'
     ))
     fig_mobile.add_trace(go.Scatter(
         x=dates, y=non_info_mobile,
         mode='lines+markers',
         name='Non-Informational Queries',
-        line=dict(color='#10b981', width=3),
-        fill='tozeroy'
+        line=dict(color='#10b981', width=4),
+        marker=dict(size=8, line=dict(width=2, color='white')),
+        fill='tozeroy',
+        fillcolor='rgba(16, 185, 129, 0.1)',
+        hovertemplate='<b>Non-Informational</b><br>Date: %{x}<br>CTR: %{y:.2f}%<extra></extra>'
     ))
     
     fig_mobile.update_layout(
-        title="Mobile CTR by Query Intent",
-        xaxis_title="Date",
-        yaxis_title="CTR (%)",
-        height=400,
-        annotations=create_timeline_annotations()
+        title=dict(
+            text="<b>Mobile CTR by Query Intent</b>",
+            font=dict(size=20, color='#1e293b', family="Arial Black"),
+            x=0.5
+        ),
+        xaxis=dict(
+            title="<b>Date</b>",
+            titlefont=dict(size=14, color='#374151'),
+            tickfont=dict(size=12, color='#6b7280'),
+            showgrid=True,
+            gridcolor='rgba(0,0,0,0.1)',
+            zeroline=False
+        ),
+        yaxis=dict(
+            title="<b>CTR (%)</b>",
+            titlefont=dict(size=14, color='#374151'),
+            tickfont=dict(size=12, color='#6b7280'),
+            showgrid=True,
+            gridcolor='rgba(0,0,0,0.1)',
+            zeroline=False
+        ),
+        height=550,
+        font=dict(family="Arial", size=12),
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        annotations=create_timeline_annotations(),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1,
+            font=dict(size=12)
+        ),
+        margin=dict(l=60, r=60, t=100, b=60)
     )
     
     return fig_desktop, fig_mobile
@@ -229,20 +341,50 @@ def plot_word_length_analysis(word_length_data):
     last_month = word_length_pivot.iloc[-1] * 100
     decline_pct = ((last_month - first_month) / first_month * 100)
     
+    # Create color gradient for decline chart
+    colors = ['#dc2626' if x < -40 else '#f59e0b' if x < -20 else '#10b981' for x in decline_pct.values[:10]]
+    
     # Word length decline chart
     fig_decline = go.Figure(data=[
         go.Bar(
             x=[f"{i} word{'s' if i > 1 else ''}" for i in range(1, 11)],
             y=decline_pct.values[:10],
-            marker_color='#64748b'
+            marker=dict(
+                color=colors,
+                line=dict(color='white', width=2)
+            ),
+            text=[f"{x:.1f}%" for x in decline_pct.values[:10]],
+            textposition='outside',
+            textfont=dict(size=12, color='#374151', family="Arial Bold"),
+            hovertemplate='<b>%{x}</b><br>Decline: %{y:.1f}%<extra></extra>'
         )
     ])
     
     fig_decline.update_layout(
-        title="CTR Decline by Query Length",
-        xaxis_title="Query Length",
-        yaxis_title="Decline (%)",
-        height=400
+        title=dict(
+            text="<b>CTR Decline by Query Length</b>",
+            font=dict(size=20, color='#1e293b', family="Arial Black"),
+            x=0.5
+        ),
+        xaxis=dict(
+            title="<b>Query Length</b>",
+            titlefont=dict(size=14, color='#374151'),
+            tickfont=dict(size=12, color='#6b7280'),
+            showgrid=False
+        ),
+        yaxis=dict(
+            title="<b>Decline (%)</b>",
+            titlefont=dict(size=14, color='#374151'),
+            tickfont=dict(size=12, color='#6b7280'),
+            showgrid=True,
+            gridcolor='rgba(0,0,0,0.1)',
+            zeroline=True,
+            zerolinecolor='rgba(0,0,0,0.3)'
+        ),
+        height=550,
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        margin=dict(l=60, r=60, t=100, b=60)
     )
     
     # Word length trends chart
@@ -250,7 +392,7 @@ def plot_word_length_analysis(word_length_data):
     
     # Show trends for selected word counts
     selected_lengths = [1, 3, 5, 7]
-    colors = ['#2b0573', '#10b981', '#6325f4', '#ef4444']
+    colors_trend = ['#2b0573', '#10b981', '#6325f4', '#ef4444']
     
     for i, length in enumerate(selected_lengths):
         if length in word_length_pivot.columns:
@@ -259,15 +401,46 @@ def plot_word_length_analysis(word_length_data):
                 y=word_length_pivot[length] * 100,
                 mode='lines+markers',
                 name=f'{length} Word Queries',
-                line=dict(color=colors[i], width=3)
+                line=dict(color=colors_trend[i], width=4),
+                marker=dict(size=8, line=dict(width=2, color='white')),
+                hovertemplate=f'<b>{length} Word Queries</b><br>Date: %{{x}}<br>CTR: %{{y:.2f}}%<extra></extra>'
             ))
     
     fig_trends.update_layout(
-        title="Query Length CTR Trends",
-        xaxis_title="Date",
-        yaxis_title="CTR (%)",
-        height=400,
-        annotations=create_timeline_annotations()
+        title=dict(
+            text="<b>Query Length CTR Trends</b>",
+            font=dict(size=20, color='#1e293b', family="Arial Black"),
+            x=0.5
+        ),
+        xaxis=dict(
+            title="<b>Date</b>",
+            titlefont=dict(size=14, color='#374151'),
+            tickfont=dict(size=12, color='#6b7280'),
+            showgrid=True,
+            gridcolor='rgba(0,0,0,0.1)',
+            zeroline=False
+        ),
+        yaxis=dict(
+            title="<b>CTR (%)</b>",
+            titlefont=dict(size=14, color='#374151'),
+            tickfont=dict(size=12, color='#6b7280'),
+            showgrid=True,
+            gridcolor='rgba(0,0,0,0.1)',
+            zeroline=False
+        ),
+        height=550,
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        annotations=create_timeline_annotations(),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1,
+            font=dict(size=12)
+        ),
+        margin=dict(l=60, r=60, t=100, b=60)
     )
     
     return fig_decline, fig_trends
@@ -288,24 +461,59 @@ def plot_brand_analysis(brand_data):
         y=brand_ctr['calculated ctr'] * 100,
         mode='lines+markers',
         name='Brand CTR',
-        line=dict(color='#2b0573', width=3),
-        fill='tonexty'
+        line=dict(color='#2b0573', width=4),
+        marker=dict(size=8, line=dict(width=2, color='white')),
+        fill='tonexty',
+        fillcolor='rgba(43, 5, 115, 0.1)',
+        hovertemplate='<b>Brand CTR</b><br>Date: %{x}<br>CTR: %{y:.2f}%<extra></extra>'
     ))
     fig_trends.add_trace(go.Scatter(
         x=non_brand_ctr['date (Date)'],
         y=non_brand_ctr['calculated ctr'] * 100,
         mode='lines+markers',
         name='Non-Brand CTR',
-        line=dict(color='#ef4444', width=3),
-        fill='tozeroy'
+        line=dict(color='#ef4444', width=4),
+        marker=dict(size=8, line=dict(width=2, color='white')),
+        fill='tozeroy',
+        fillcolor='rgba(239, 68, 68, 0.1)',
+        hovertemplate='<b>Non-Brand CTR</b><br>Date: %{x}<br>CTR: %{y:.2f}%<extra></extra>'
     ))
     
     fig_trends.update_layout(
-        title="Brand vs Non-Brand CTR Trends",
-        xaxis_title="Date",
-        yaxis_title="CTR (%)",
-        height=400,
-        annotations=create_timeline_annotations()
+        title=dict(
+            text="<b>Brand vs Non-Brand CTR Trends</b>",
+            font=dict(size=20, color='#1e293b', family="Arial Black"),
+            x=0.5
+        ),
+        xaxis=dict(
+            title="<b>Date</b>",
+            titlefont=dict(size=14, color='#374151'),
+            tickfont=dict(size=12, color='#6b7280'),
+            showgrid=True,
+            gridcolor='rgba(0,0,0,0.1)',
+            zeroline=False
+        ),
+        yaxis=dict(
+            title="<b>CTR (%)</b>",
+            titlefont=dict(size=14, color='#374151'),
+            tickfont=dict(size=12, color='#6b7280'),
+            showgrid=True,
+            gridcolor='rgba(0,0,0,0.1)',
+            zeroline=False
+        ),
+        height=600,
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        annotations=create_timeline_annotations(),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1,
+            font=dict(size=12)
+        ),
+        margin=dict(l=60, r=60, t=100, b=60)
     )
     
     # CTR Gap Evolution
@@ -316,16 +524,40 @@ def plot_brand_analysis(brand_data):
             y=gap_ratio,
             mode='lines+markers',
             name='Brand/Non-Brand Ratio',
-            line=dict(color='#64748b', width=3),
-            fill='tozeroy'
+            line=dict(color='#64748b', width=4),
+            marker=dict(size=8, line=dict(width=2, color='white')),
+            fill='tozeroy',
+            fillcolor='rgba(100, 116, 139, 0.1)',
+            hovertemplate='<b>CTR Gap</b><br>Date: %{x}<br>Ratio: %{y:.1f}x<extra></extra>'
         )
     ])
     
     fig_gap.update_layout(
-        title="CTR Gap Evolution",
-        xaxis_title="Date",
-        yaxis_title="Ratio (x times)",
-        height=400
+        title=dict(
+            text="<b>CTR Gap Evolution</b>",
+            font=dict(size=20, color='#1e293b', family="Arial Black"),
+            x=0.5
+        ),
+        xaxis=dict(
+            title="<b>Date</b>",
+            titlefont=dict(size=14, color='#374151'),
+            tickfont=dict(size=12, color='#6b7280'),
+            showgrid=True,
+            gridcolor='rgba(0,0,0,0.1)',
+            zeroline=False
+        ),
+        yaxis=dict(
+            title="<b>Ratio (x times)</b>",
+            titlefont=dict(size=14, color='#374151'),
+            tickfont=dict(size=12, color='#6b7280'),
+            showgrid=True,
+            gridcolor='rgba(0,0,0,0.1)',
+            zeroline=False
+        ),
+        height=500,
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        margin=dict(l=60, r=60, t=100, b=60)
     )
     
     # Performance divergence
@@ -336,14 +568,40 @@ def plot_brand_analysis(brand_data):
         go.Bar(
             x=['Brand Performance', 'Non-Brand Performance'],
             y=[brand_change, non_brand_change],
-            marker_color=['#2b0573', '#ef4444']
+            marker=dict(
+                color=['#2b0573', '#ef4444'],
+                line=dict(color='white', width=2)
+            ),
+            text=[f"{brand_change:.1f}%", f"{non_brand_change:.1f}%"],
+            textposition='outside',
+            textfont=dict(size=14, color='#374151', family="Arial Bold"),
+            hovertemplate='<b>%{x}</b><br>Change: %{y:.1f}%<extra></extra>'
         )
     ])
     
     fig_divergence.update_layout(
-        title="Performance Divergence",
-        yaxis_title="Change (%)",
-        height=400
+        title=dict(
+            text="<b>Performance Divergence</b>",
+            font=dict(size=20, color='#1e293b', family="Arial Black"),
+            x=0.5
+        ),
+        yaxis=dict(
+            title="<b>Change (%)</b>",
+            titlefont=dict(size=14, color='#374151'),
+            tickfont=dict(size=12, color='#6b7280'),
+            showgrid=True,
+            gridcolor='rgba(0,0,0,0.1)',
+            zeroline=True,
+            zerolinecolor='rgba(0,0,0,0.3)'
+        ),
+        xaxis=dict(
+            tickfont=dict(size=12, color='#6b7280'),
+            showgrid=False
+        ),
+        height=500,
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        margin=dict(l=60, r=60, t=100, b=60)
     )
     
     return fig_trends, fig_gap, fig_divergence
@@ -512,11 +770,9 @@ def main():
         fig_desktop, fig_mobile = plot_intent_analysis(nb_info_ctr)
         
         if fig_desktop and fig_mobile:
-            col1, col2 = st.columns(2)
-            with col1:
-                st.plotly_chart(fig_desktop, use_container_width=True)
-            with col2:
-                st.plotly_chart(fig_mobile, use_container_width=True)
+            # Display charts in full width containers
+            st.plotly_chart(fig_desktop, use_container_width=True, config={'displayModeBar': True, 'displaylogo': False})
+            st.plotly_chart(fig_mobile, use_container_width=True, config={'displayModeBar': True, 'displaylogo': False})
         
         # Key findings
         st.markdown("""
@@ -545,11 +801,9 @@ def main():
         fig_decline, fig_trends = plot_word_length_analysis(word_length_data)
         
         if fig_decline and fig_trends:
-            col1, col2 = st.columns(2)
-            with col1:
-                st.plotly_chart(fig_decline, use_container_width=True)
-            with col2:
-                st.plotly_chart(fig_trends, use_container_width=True)
+            # Display charts in full width containers  
+            st.plotly_chart(fig_decline, use_container_width=True, config={'displayModeBar': True, 'displaylogo': False})
+            st.plotly_chart(fig_trends, use_container_width=True, config={'displayModeBar': True, 'displaylogo': False})
         
         # Key findings
         st.markdown("""
@@ -610,12 +864,15 @@ def main():
         fig_trends, fig_gap, fig_divergence = plot_brand_analysis(brand_data)
         
         if fig_trends and fig_gap and fig_divergence:
+            # Main trend chart full width
+            st.plotly_chart(fig_trends, use_container_width=True, config={'displayModeBar': True, 'displaylogo': False})
+            
+            # Secondary charts in columns
             col1, col2 = st.columns(2)
             with col1:
-                st.plotly_chart(fig_trends, use_container_width=True)
-                st.plotly_chart(fig_divergence, use_container_width=True)
+                st.plotly_chart(fig_gap, use_container_width=True, config={'displayModeBar': True, 'displaylogo': False})
             with col2:
-                st.plotly_chart(fig_gap, use_container_width=True)
+                st.plotly_chart(fig_divergence, use_container_width=True, config={'displayModeBar': True, 'displaylogo': False})
         
         # Key findings
         st.markdown("""
