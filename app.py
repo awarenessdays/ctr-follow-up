@@ -235,16 +235,14 @@ def plot_intent_analysis(nb_info_ctr):
                 'x': 0.5
             },
             xaxis={
-                'title': "<b>Date</b>",
-                'titlefont': {'size': 14, 'color': '#374151'},
+                'title': {'text': "<b>Date</b>", 'font': {'size': 14, 'color': '#374151'}},
                 'tickfont': {'size': 12, 'color': '#6b7280'},
                 'showgrid': True,
                 'gridcolor': 'rgba(0,0,0,0.1)',
                 'zeroline': False
             },
             yaxis={
-                'title': "<b>CTR (%)</b>",
-                'titlefont': {'size': 14, 'color': '#374151'},
+                'title': {'text': "<b>CTR (%)</b>", 'font': {'size': 14, 'color': '#374151'}},
                 'tickfont': {'size': 12, 'color': '#6b7280'},
                 'showgrid': True,
                 'gridcolor': 'rgba(0,0,0,0.1)',
@@ -295,16 +293,14 @@ def plot_intent_analysis(nb_info_ctr):
                 'x': 0.5
             },
             xaxis={
-                'title': "<b>Date</b>",
-                'titlefont': {'size': 14, 'color': '#374151'},
+                'title': {'text': "<b>Date</b>", 'font': {'size': 14, 'color': '#374151'}},
                 'tickfont': {'size': 12, 'color': '#6b7280'},
                 'showgrid': True,
                 'gridcolor': 'rgba(0,0,0,0.1)',
                 'zeroline': False
             },
             yaxis={
-                'title': "<b>CTR (%)</b>",
-                'titlefont': {'size': 14, 'color': '#374151'},
+                'title': {'text': "<b>CTR (%)</b>", 'font': {'size': 14, 'color': '#374151'}},
                 'tickfont': {'size': 12, 'color': '#6b7280'},
                 'showgrid': True,
                 'gridcolor': 'rgba(0,0,0,0.1)',
@@ -374,14 +370,12 @@ def plot_word_length_analysis(word_length_data):
                 'x': 0.5
             },
             xaxis={
-                'title': "<b>Query Length</b>",
-                'titlefont': {'size': 14, 'color': '#374151'},
+                'title': {'text': "<b>Query Length</b>", 'font': {'size': 14, 'color': '#374151'}},
                 'tickfont': {'size': 12, 'color': '#6b7280'},
                 'showgrid': False
             },
             yaxis={
-                'title': "<b>Decline (%)</b>",
-                'titlefont': {'size': 14, 'color': '#374151'},
+                'title': {'text': "<b>Decline (%)</b>", 'font': {'size': 14, 'color': '#374151'}},
                 'tickfont': {'size': 12, 'color': '#6b7280'},
                 'showgrid': True,
                 'gridcolor': 'rgba(0,0,0,0.1)',
@@ -420,16 +414,14 @@ def plot_word_length_analysis(word_length_data):
                 'x': 0.5
             },
             xaxis={
-                'title': "<b>Date</b>",
-                'titlefont': {'size': 14, 'color': '#374151'},
+                'title': {'text': "<b>Date</b>", 'font': {'size': 14, 'color': '#374151'}},
                 'tickfont': {'size': 12, 'color': '#6b7280'},
                 'showgrid': True,
                 'gridcolor': 'rgba(0,0,0,0.1)',
                 'zeroline': False
             },
             yaxis={
-                'title': "<b>CTR (%)</b>",
-                'titlefont': {'size': 14, 'color': '#374151'},
+                'title': {'text': "<b>CTR (%)</b>", 'font': {'size': 14, 'color': '#374151'}},
                 'tickfont': {'size': 12, 'color': '#6b7280'},
                 'showgrid': True,
                 'gridcolor': 'rgba(0,0,0,0.1)',
@@ -500,16 +492,14 @@ def plot_brand_analysis(brand_data):
                 'x': 0.5
             },
             xaxis={
-                'title': "<b>Date</b>",
-                'titlefont': {'size': 14, 'color': '#374151'},
+                'title': {'text': "<b>Date</b>", 'font': {'size': 14, 'color': '#374151'}},
                 'tickfont': {'size': 12, 'color': '#6b7280'},
                 'showgrid': True,
                 'gridcolor': 'rgba(0,0,0,0.1)',
                 'zeroline': False
             },
             yaxis={
-                'title': "<b>CTR (%)</b>",
-                'titlefont': {'size': 14, 'color': '#374151'},
+                'title': {'text': "<b>CTR (%)</b>", 'font': {'size': 14, 'color': '#374151'}},
                 'tickfont': {'size': 12, 'color': '#6b7280'},
                 'showgrid': True,
                 'gridcolor': 'rgba(0,0,0,0.1)',
@@ -552,16 +542,14 @@ def plot_brand_analysis(brand_data):
                 'x': 0.5
             },
             xaxis={
-                'title': "<b>Date</b>",
-                'titlefont': {'size': 14, 'color': '#374151'},
+                'title': {'text': "<b>Date</b>", 'font': {'size': 14, 'color': '#374151'}},
                 'tickfont': {'size': 12, 'color': '#6b7280'},
                 'showgrid': True,
                 'gridcolor': 'rgba(0,0,0,0.1)',
                 'zeroline': False
             },
             yaxis={
-                'title': "<b>Ratio (x times)</b>",
-                'titlefont': {'size': 14, 'color': '#374151'},
+                'title': {'text': "<b>Ratio (x times)</b>", 'font': {'size': 14, 'color': '#374151'}},
                 'tickfont': {'size': 12, 'color': '#6b7280'},
                 'showgrid': True,
                 'gridcolor': 'rgba(0,0,0,0.1)',
@@ -599,8 +587,7 @@ def plot_brand_analysis(brand_data):
                 'x': 0.5
             },
             yaxis={
-                'title': "<b>Change (%)</b>",
-                'titlefont': {'size': 14, 'color': '#374151'},
+                'title': {'text': "<b>Change (%)</b>", 'font': {'size': 14, 'color': '#374151'}},
                 'tickfont': {'size': 12, 'color': '#6b7280'},
                 'showgrid': True,
                 'gridcolor': 'rgba(0,0,0,0.1)',
