@@ -665,7 +665,7 @@ def main():
     
     # Sidebar for file upload and controls
     with st.sidebar:
-        st.header("📁 Data Upload")
+        st.header("Data Upload")
         uploaded_file = st.file_uploader(
             "Upload Excel file",
             type=['xlsx', 'xls'],
@@ -684,25 +684,25 @@ def main():
         </div>
         """, unsafe_allow_html=True)
         
-        if st.button("📊 Use Sample Data"):
+        if st.button("Use Sample Data"):
             st.session_state.use_sample = True
     
     # Process data
     if uploaded_file is not None:
         nb_info_ctr, word_length_data, brand_data = process_uploaded_data(uploaded_file)
-        st.success("✅ Data uploaded successfully!")
+        st.success("Data uploaded successfully!")
     elif st.session_state.get('use_sample', False):
         nb_info_ctr, word_length_data, brand_data = load_sample_data()
-        st.info("📊 Using sample data for demonstration")
+        st.info("Using sample data for demonstration")
     else:
-        st.warning("⬆️ Please upload a data file or use sample data to view the analysis")
+        st.warning("Please upload a data file or use sample data to view the analysis")
         return
     
     # Calculate metrics
     metrics = calculate_metrics(nb_info_ctr, word_length_data, brand_data)
     
     # Create tabs
-    tab1, tab2, tab3 = st.tabs(["🎯 Query Intent Analysis", "📏 Query Length Analysis", "🏷️ Brand vs Non-Brand Analysis"])
+    tab1, tab2, tab3 = st.tabs(["Query Intent Analysis", "Query Length Analysis", "Brand vs Non-Brand Analysis"])
     
     with tab1:
         st.markdown("### Non-Brand Query Intent Classification Analysis")
@@ -718,7 +718,7 @@ def main():
         """, unsafe_allow_html=True)
         
         # Timeline phases
-        with st.expander("📅 AI Overviews Rollout Timeline & Impact Correlation"):
+        with st.expander("AI Overviews Rollout Timeline & Impact Correlation"):
             st.markdown("""
             <div class="timeline-phase">
                 <strong>Phase 1 (May 14, 2024):</strong> Initial AI Overviews launch in US for signed-in users
@@ -780,7 +780,7 @@ def main():
         
         # Key findings
         st.markdown("""
-        ### 🔍 Key Findings
+        ### Key Findings
         
         **Cross-Intent Impact:** Both informational and commercial queries show substantial CTR decline, contradicting the hypothesis that AI Overviews primarily affect informational searches.
         
@@ -811,7 +811,7 @@ def main():
         
         # Key findings
         st.markdown("""
-        ### 🔍 Key Findings
+        ### Key Findings
         
         **Universal Impact:** All non-brand query lengths show CTR decline, indicating impact extends beyond long-tail informational queries.
         
@@ -880,7 +880,7 @@ def main():
         
         # Key findings
         st.markdown("""
-        ### 🔍 Key Findings
+        ### Key Findings
         
         **Divergent Trajectories:** Brand CTR increased while non-brand CTR declined significantly, representing substantial performance divergence.
         
